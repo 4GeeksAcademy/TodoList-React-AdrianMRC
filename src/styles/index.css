@@ -1,4 +1,4 @@
-/* Estilos generales del contenedor principal */
+
 .container {
     max-width: 600px;
     margin: 2rem auto;
@@ -6,7 +6,6 @@
     font-family: Arial, sans-serif;
   }
   
-  /* Estilos del input de nueva tarea */
   input[type="text"] {
     width: 100%;
     padding: 12px;

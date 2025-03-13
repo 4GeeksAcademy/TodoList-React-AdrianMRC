@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import TasksList from './TaskList';
+
 
 function TodoList() {
     const [tasks, setTasks] = useState([]);
-    const [newTaskText, setNewTaskText] = useState('');
+    const [newTask, setNewTask] = useState('');
 
     const AddTask = (pressedKey) => {
-        if (pressedKey === 'Enter' && newTaskText.trim()) {
-            const newTask = {
+        if (pressedKey === 'Enter' && newTask.trim()) {
+            const newTaskItem = {
                 id: Date.now(),
-                content: newTaskText.trim(),
+                content: newTask.trim(),
             };
-            setTasks(prevTasks => [...prevTasks, newTask]);
-            setNewTaskText('');
+            setTasks(prevTasks => [...prevTasks, newTaskItem]);
+            setNewTask('');
         }
     };
 
@@ -25,8 +27,8 @@ function TodoList() {
             
             <input
                 type="text"
-                value={newTaskText}
-                onChange={(e) => setNewTaskText(e.target.value)}
+                value={newTask}
+                onChange={(e) => setNewTask(e.target.value)}
                 onKeyDown={(e) => AddTask(e.key)}
                 placeholder="Escribe una tarea y presiona Enter"
             />
@@ -34,20 +36,7 @@ function TodoList() {
             {tasks.length === 0 ? (
                 <p className="empty-message">No hay tareas, añadir tareas</p>
             ) : (
-                <ul className="tasks-container">
-                    {tasks.map((task) => (
-                        <li key={task.id} className="task-item">
-                            <span className="task-content">{task.content}</span>
-                            <button 
-                                className="delete-button"
-                                onClick={() => DeleteTask(task.id)}
-                                aria-label="Eliminar tarea"
-                            >
-                                ×
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <TasksList tasks={tasks} onDelete={DeleteTask} />
             )}
         </div>
     );
